@@ -1,49 +1,43 @@
 package ru.gb.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import ru.gb.entity.enums.Status;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Entity
-@Table (name = "product")
 @EntityListeners(AuditingEntityListener.class)
-public class Product {
+@Entity
+@Table(name = "CATEGORY")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
+
     @Column(name = "title")
     private String title;
-    @Column(name = "cost")
-    private BigDecimal cost;
-    @Column(name = "manufacture_date")
-    private LocalDate manufactureDate;
-    @ManyToOne
-    @JoinColumn(name = "manufacturer_id")
-    private Manufacturer manufacturer;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "PRODUCT_CATEGORY",
-            joinColumns = @JoinColumn(name = "PRODUCT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID")
+            joinColumns = @JoinColumn(name = "CATEGORY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
     )
-    private List<Category> categories;
+    private Set<Product> products;
 
     @Version
     @Column(name = "VERSION")
@@ -61,18 +55,19 @@ public class Product {
     @Column(name = "LAST_MODIFIED_DATE")
     private LocalDateTime lastModifiedDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private Status status;
+    public boolean addProduct(Product product) {
+        if (products == null) {
+            products = new HashSet<>();
+        }
+        return products.add(product);
+    }
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "Category{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", cost=" + cost +
-                ", manufactureDate=" + manufactureDate +
-//                ", manufacturer=" + manufacturer.getName() +
-                "}\n";
+                ", products=" + products +
+                '}';
     }
 }

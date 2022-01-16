@@ -38,7 +38,7 @@ class ManufacturerServiceTest {
     @Test
     public void findAllManufacturersTest() {
         // given
-        List<Manufacturer> manufacturers = new ArrayList<>(){{
+        List<Manufacturer> manufacturers = new ArrayList(){{
             add(new Manufacturer(1L, "Apple", new HashSet<>(), 1, "user1", LocalDateTime.now(), "user1", LocalDateTime.now()));
             add(new Manufacturer(2L, "Microsoft", new HashSet<>(), 1, "user1", LocalDateTime.now(), "user1", LocalDateTime.now()));
         }};
