@@ -9,7 +9,6 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
@@ -53,6 +52,28 @@ public class FeignConfiguration {
                 .errorDecoder(errorDecoder())
                 .contract(new SpringMvcContract())
                 .target(ManufacturerGateway.class, gbApiProperties.getEndpoint().getManufacturerUrl());
+    }
+
+    @Bean
+    public ProductGateway productGateway() {
+
+        return Feign.builder()
+                .encoder(new SpringEncoder(this.messageConverters))
+                .decoder(new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(this.messageConverters))))
+                .options(new Request.Options(
+                        gbApiProperties.getConnection().getConnectTimeoutMillis(),
+                        gbApiProperties.getConnection().getReadTimeoutMillis()
+                ))
+                .logger(new Slf4jLogger(ProductGateway.class))
+                .logLevel(Logger.Level.FULL)
+                .retryer(new Retryer.Default(
+                        gbApiProperties.getConnection().getPeriod(),
+                        gbApiProperties.getConnection().getMaxPeriod(),
+                        gbApiProperties.getConnection().getMaxAttempts()
+                ))
+                .errorDecoder(errorDecoder())
+                .contract(new SpringMvcContract())
+                .target(ProductGateway.class, gbApiProperties.getEndpoint().getCategoryUrl());
     }
 
     private ErrorDecoder errorDecoder() {
