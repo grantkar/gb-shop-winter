@@ -54,28 +54,6 @@ public class FeignConfiguration {
                 .target(ManufacturerGateway.class, gbApiProperties.getEndpoint().getManufacturerUrl());
     }
 
-    @Bean
-    public ProductGateway productGateway() {
-
-        return Feign.builder()
-                .encoder(new SpringEncoder(this.messageConverters))
-                .decoder(new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(this.messageConverters))))
-                .options(new Request.Options(
-                        gbApiProperties.getConnection().getConnectTimeoutMillis(),
-                        gbApiProperties.getConnection().getReadTimeoutMillis()
-                ))
-                .logger(new Slf4jLogger(ProductGateway.class))
-                .logLevel(Logger.Level.FULL)
-                .retryer(new Retryer.Default(
-                        gbApiProperties.getConnection().getPeriod(),
-                        gbApiProperties.getConnection().getMaxPeriod(),
-                        gbApiProperties.getConnection().getMaxAttempts()
-                ))
-                .errorDecoder(errorDecoder())
-                .contract(new SpringMvcContract())
-                .target(ProductGateway.class, gbApiProperties.getEndpoint().getCategoryUrl());
-    }
-
     private ErrorDecoder errorDecoder() {
         return (methodKey, response) -> {
             FeignException feignException = errorStatus(methodKey, response);

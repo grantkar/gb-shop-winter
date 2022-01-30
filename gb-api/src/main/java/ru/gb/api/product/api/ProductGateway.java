@@ -1,5 +1,6 @@
 package ru.gb.api.product.api;
 
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -9,6 +10,7 @@ import ru.gb.api.productManufacturerDto.ProductManufacturerDto;
 
 import java.util.List;
 
+@FeignClient(url = "http://127.0.0.1:8888/internal/api/v1/product", name = "ProductGateway")
 public interface ProductGateway {
 
 
