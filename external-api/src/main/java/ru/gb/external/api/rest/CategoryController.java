@@ -1,14 +1,8 @@
 package ru.gb.external.api.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import ru.gb.api.category.api.CategoryGateway;
-import ru.gb.api.category.dto.CategoryDto;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,10 +20,10 @@ public class CategoryController {
 //    public ResponseEntity<?> getCategory(@PathVariable("categoryId") Long id) {
 //        return categoryGateway.getCategory(id);
 //    }
-
+//
 //    @PostMapping
 //    public ResponseEntity<?> handlePost(@Validated @RequestBody CategoryDto categoryDto) {
-//        categoryService.save(categoryDto);
+//        categoryGateway.handlePost(categoryDto);
 //        return new ResponseEntity<>(HttpStatus.CREATED);
 //    }
 //
@@ -37,13 +31,13 @@ public class CategoryController {
 //    public ResponseEntity<?> handleUpdate(@PathVariable("categoryId") Long id,
 //                                          @Validated @RequestBody CategoryDto categoryDto) {
 //        categoryDto.setCategoryId(id);
-//        categoryService.save(categoryDto);
+//        categoryGateway.handleUpdate(id,categoryDto);
 //        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //    }
 //
 //    @DeleteMapping("/{categoryId}")
 //    @ResponseStatus(HttpStatus.NO_CONTENT)
 //    public void deleteById(@PathVariable("categoryId") Long id) {
-//        categoryService.deleteById(id);
+//        categoryGateway.deleteById(id);
 //    }
 }
