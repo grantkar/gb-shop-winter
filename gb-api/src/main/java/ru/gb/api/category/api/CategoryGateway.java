@@ -1,6 +1,5 @@
 package ru.gb.api.category.api;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +14,7 @@ public interface CategoryGateway {
     List<CategoryDto> getCategoryList();
 
     @GetMapping("/{categoryId}")
-    ResponseEntity<?> getCategory(@PathVariable("categoryId") Long id);
+    ResponseEntity<? extends CategoryDto> getCategory(@PathVariable("categoryId") Long id);
 
     @PostMapping
     ResponseEntity<?> handlePost(@Validated @RequestBody CategoryDto categoryDto);
