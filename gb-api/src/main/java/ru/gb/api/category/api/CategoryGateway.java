@@ -1,6 +1,7 @@
 package ru.gb.api.category.api;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +25,6 @@ public interface CategoryGateway {
                                    @Validated @RequestBody CategoryDto categoryDto);
 
     @DeleteMapping("/{categoryId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteById(@PathVariable("categoryId") Long id);
 }

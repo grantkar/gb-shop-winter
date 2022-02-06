@@ -6,7 +6,7 @@ plugins {
 
 
 group = 'ru.gb'
-version = '0.1.16'
+version = '0.1.18'
 sourceCompatibility = '11'
 
 repositories {
@@ -24,6 +24,7 @@ dependencies {
     implementation 'io.github.openfeign:feign-slf4j'
     implementation 'org.springframework:spring-beans'
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation 'io.github.openfeign:feign-httpclient'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
