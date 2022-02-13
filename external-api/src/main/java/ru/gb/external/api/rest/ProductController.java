@@ -30,15 +30,7 @@ public class ProductController {
         model.addAttribute("productCost", productGateway.getProduct(id).getBody().getCost());
         return "product-info";
     }
-//    @GetMapping("/{productId}")
-//    public ResponseEntity<?> getProduct(@PathVariable("productId") Long id) {
-//        return productGateway.getProduct(id);
-//    }
 
-//    @PostMapping
-//    public ResponseEntity<?> handlePost(@Validated @RequestBody ProductDto productDto) {
-//        return productGateway.handlePost(productDto);
-//    }
     @PostMapping
     public String saveProduct( @Validated @RequestBody ProductDto product) {
         product.setManufactureDate(LocalDate.now());
@@ -69,9 +61,4 @@ public class ProductController {
         return "redirect:/api/v1/product";
     }
 
-//    @DeleteMapping("/{productId}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void deleteById(@PathVariable("productId") Long id) {
-//        productGateway.deleteById(id);
-//    }
 }
