@@ -15,7 +15,7 @@
 <div th:replace="~{navbar :: navi(ProductForm)}" />
 
 <div class="container">
-<form class="form-horizontal" th:action="@{/product}" th:object="${product}" method="post">
+<form class="form-horizontal" th:action="@{/api/v1/product}" th:object="${product}" method="post">
     <input type="hidden" th:field="*{id}">
     <div class="col-md-8">
         <div class="input-group mb-3">
@@ -42,12 +42,29 @@
     
     <div class="col-md-8">
         <select class="form-select" aria-label="Default select example" th:field="*{status}">
-            <option th:each="statusValue : ${T(ru.gb.thymeleafprepare.entity.enums.Status).values()}"
+            <option th:each="statusValue : ${T(ru.gb.api.common.enums.Status).values()}"
                     th:value="${statusValue.name()}"
                     th:text="${statusValue.title}"></option>
         </select>
 
     </div>
+
+    <div class="col-md-8">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="manufacturer">Производитель</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default" th:field="*{manufacturer}">
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="categories">Категория</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default" th:field="*{categories}">
+        </div>
+    </div>
+
     <div class="col-12">
         <button class="btn btn-primary" type="submit">Сохранить</button>
     </div>

@@ -40,12 +40,12 @@
                         <a type="button" th:href="@{/product(id=${product.id})}" class="btn btn-warning">Редактировать</a>
                     </td>
                     <td>
-                        <a type="button" th:href="@{/product/delete(id=${product.id})}" class="btn btn-danger">Удалить</a>
+                        <a type="button" th:href="@{'/api/v1/product/delete'(id=${product.id})}" th:method="delete" class="btn btn-danger">Удалить</a>
                     </td>
                 </div>
                 <div sec:authorize="hasAuthority('product.read') || isAnonymous()">
                     <td>
-                        <a class="btn btn-warning" th:href="@{'/product/' + ${product.id}}" role="button">Просмотреть</a>
+                        <a class="btn btn-warning" th:href="@{'/api/v1/product/' + ${product.id}}" role="button">Просмотреть</a>
                     </td>
                     <td>
                         <a class="btn btn-primary" th:href="@{'/cart/add/' + ${product.id}}" role="button">Добавить в корзину</a>

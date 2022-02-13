@@ -15,8 +15,8 @@
 <div th:replace="~{navbar :: navi(ProductForm)}" />
 
 <div class="container">
-    <h2 th:text="${'Название: ' + product}"></h2>
-    <h2 th:text="${'Цена: ' + product}"></h2>
+    <h2 th:text="${'Название: ' + productTitle}"></h2>
+    <h2 th:text="${'Цена: ' + productCost}"></h2>
 </div>
 
 <div th:replace="~{footer :: footerBlock}" />

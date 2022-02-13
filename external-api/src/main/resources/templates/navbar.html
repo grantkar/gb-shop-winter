@@ -22,10 +22,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${activeTab == 'ProductList' ? 'active' : ''}" aria-current="page" th:href="@{/product/all}">Список продуктов</a>
+                    <a class="nav-link" th:classappend="${activeTab == 'ProductList' ? 'active' : ''}" aria-current="page" th:href="@{'/api/v1/product'}">Список продуктов</a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                    <a class="nav-link" th:classappend="${activeTab == 'ProductForm' ? 'active' : ''}" th:href="@{/product}">Добавить продукт</a>
+                    <a class="nav-link" th:classappend="${activeTab == 'ProductForm' ? 'active' : ''}" th:href="@{'/api/v1/product/add'}">Добавить продукт</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <form th:action="@{/logout}" method="POST">

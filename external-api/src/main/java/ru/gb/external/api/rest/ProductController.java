@@ -24,14 +24,10 @@ public class ProductController {
         return "product-list";
     }
 
-//    @GetMapping("/info")
-//    public List<ProductManufacturerDto> getInfoProductList() {
-//        return productService.findAllInfo();
-//    }
-
     @GetMapping("/{productId}")
     public String info(Model model, @PathVariable(name = "productId") Long id) {
-        model.addAttribute("product", productGateway.getProduct(id));
+        model.addAttribute("productTitle", productGateway.getProduct(id).getBody().getTitle());
+        model.addAttribute("productCost", productGateway.getProduct(id).getBody().getCost());
         return "product-info";
     }
 //    @GetMapping("/{productId}")
@@ -44,10 +40,22 @@ public class ProductController {
 //        return productGateway.handlePost(productDto);
 //    }
     @PostMapping
-    public String saveProduct(ProductDto product) {
+    public String saveProduct( @Validated @RequestBody ProductDto product) {
         product.setManufactureDate(LocalDate.now());
         productGateway.handlePost(product);
-        return "redirect:/product/all";
+        return "redirect:/api/v1/product";
+    }
+
+    @GetMapping("/add")
+    public String showAddForm(Model model, @RequestParam(name = "id", required = false) Long id) {
+        ProductDto product;
+        if (id != null) {
+            product = productGateway.getProduct(id).getBody();
+        } else {
+            product = new ProductDto();
+        }
+        model.addAttribute("product", product);
+        return "product-form";
     }
 
     @PutMapping("/{productId}")
@@ -55,7 +63,7 @@ public class ProductController {
         return productGateway.handleUpdate(id, productDto);
     }
 
-    @DeleteMapping("/delete")
+    @GetMapping("/delete")
     public String deleteById(@RequestParam(name = "id") Long id) {
         productGateway.deleteById(id);
         return "redirect:/api/v1/product";
